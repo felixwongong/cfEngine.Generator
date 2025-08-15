@@ -50,7 +50,7 @@ namespace cfEngine.GameItem
                     ? attribute.ConstructorArguments[1].Value as string ?? string.Empty
                     : string.Empty;
 
-                return new ItemInfo(typeSymbol, itemName, decodeMethod);
+                return new ItemInfo{ Type = typeSymbol, ItemName = itemName, DecodeMethod = decodeMethod };
             });
 
         var all = marked.Collect();
@@ -112,11 +112,11 @@ namespace cfEngine.GameItem
         });
     }
 
-    private readonly struct ItemInfo(INamedTypeSymbol Type, string ItemName, string DecodeMethod)
+    private struct ItemInfo
     {
-        public INamedTypeSymbol Type { get; } = Type;
-        public string ItemName { get; } = ItemName;
-        public string DecodeMethod { get; } = DecodeMethod;
+        public INamedTypeSymbol Type;
+        public string ItemName;
+        public string DecodeMethod;
     }
 
     private static class Descriptors
